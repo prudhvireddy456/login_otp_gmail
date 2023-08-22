@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="icon" type="image/x-icon" href="images/download.jpeg">
+</head>
+<body>
+    <div class="container">
+        <form onsubmit="sendEmail();  return false" id='form'>
+            <label>Gmail : </label>
+            <input type="email" id="recivermail" required title="please enter email" placeholder="enter your Gmail"><br>
+            <button type="submit">Getotp</button>
+            <br><br>
+            <div style="display: none; text-align: center;" id="otp">
+            <lable>OPT</lable>
+            <input type="password" id="otp1" style="text-align: center;"><br>
+            <button type="button" onclick="verify()" style="text-align: center;">Login</button>
+            </div><br>
+            <p  id="error" style="color: red; text-align: center;"></p>
+        </form>
+    </div>
+    <script src="https://smtpjs.com/v3/smtp.js">
+     </script>
+    <script>
+      let maxii=999999
+          let minni=100000
+          let otp=Math.floor(Math.random()*(maxii-minni+1))+minni
+        function sendEmail(){
+          Email.send({
+    SecureToken : "8b517e27-8498-4d6f-87c1-28ee2b659286",
+    To : document.getElementById('recivermail').value,
+    From : "nanduriprudvi456@gmail.com",
+    Subject : "one time password for login",
+    Body : "OTP - "+otp
+}).then(
+  message => alert("otp sent not found see in spam")
+);
+document.getElementById("otp").style.display="inline"
+}
+  function verify(){
+    let k=document.getElementById('otp1').value
+    if(otp==k){
+      document.getElementById('form').reset(); 
+      window.location.href="https://www.google.com/"   }
+    else{
+      document.getElementById('error').innerHTML='oops incorrect <b>otp</b> enter valid otp'
+    }
+  }
+      </script>
+</body>
+</html>
